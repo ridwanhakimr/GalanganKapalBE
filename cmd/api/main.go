@@ -59,9 +59,21 @@ func main() {
 	protected.Get("/items", handlers.GetItems)
 	
 	// Endpoint Khusus Admin (RBAC)
-	adminOnly := protected.Group("/", middleware.RequireRole(models.RoleAdmin))
+	adminOnly := protected.Group("", middleware.RequireRole(models.RoleAdmin))
+	
+	// Master Data: Warehouses
+	adminOnly.Post("/warehouses", handlers.CreateWarehouse)
+	adminOnly.Put("/warehouses/:id", handlers.UpdateWarehouse)
+	adminOnly.Delete("/warehouses/:id", handlers.DeleteWarehouse)
+	
+	// Master Data: Categories
+	adminOnly.Post("/categories", handlers.CreateCategory)
+	adminOnly.Put("/categories/:id", handlers.UpdateCategory)
+	adminOnly.Delete("/categories/:id", handlers.DeleteCategory)
+	
 	adminOnly.Post("/items", handlers.CreateItem)
 	adminOnly.Get("/audit", handlers.GetAuditLogs)
+	adminOnly.Get("/stock-movements", handlers.GetStockMovements)
 
 	// Endpoint Requests
 	requests := protected.Group("/requests")

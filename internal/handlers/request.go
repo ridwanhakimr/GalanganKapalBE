@@ -21,9 +21,8 @@ type CreateRequestInput struct {
 // @route GET /api/v1/requests
 func GetRequests(c *fiber.Ctx) error {
 	var requests []models.ItemRequest
-	// User relation and Item relation
-	if err := config.DB.Preload("Item").Order("created_at desc").Find(&requests).Error; err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Gagal mengambil daftar pengajuan"})
+	if err := config.DB.Preload("Requester").Preload("Item").Order("requested_at desc").Find(&requests).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Gagal mengambil data permintaan"})
 	}
 	return c.JSON(requests)
 }
