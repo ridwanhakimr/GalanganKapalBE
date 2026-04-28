@@ -1,0 +1,28 @@
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test output
+*.test
+*.out
+cover.out
+
+# Dependencies
+vendor/
+go.work
+go.work.sum
+
+# Environment variables (JANGAN PERNAH PUSH INI KE GITHUB)
+.env
+.env.*
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# App specific
+uploads/
